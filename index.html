@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="root" id='counter' v-cloak>
+        <div class="container">
+            <h1 class="title">{{ title }}</h1>
+            <input type="text" v-model='inputValue' 
+            v-on:keypress.enter='addNote'
+            v-bind:value='inputValue'
+            v-bind:placeholder="placeholder">
+            <button class='btn add__note' v-on:click='addNote'>Add note</button>
+            <div class="border"></div>
+            <ul class='notes__list' v-if='notes.length !== 0'>
+                <li class='note__item' v-for='(note, idx) in notes'>
+                    {{note}}
+                    <button class="btn danger" v-on:click='deleteNote(idx)'>
+                        Delete note
+                    </button>
+                </li>
+                <div class="border"></div>
+                <li class="note__item">
+                    Notes quantity: {{notes.length}} | Double quantity: {{doubleLengthComputed}}
+                </li>
+            </ul>
+            <div v-else class="no__notes">There are no notes. Please add something</div>
+        </div>
+        <div class="container">
+            <h2 class="title">{{ usersBlock.title }}</h2>
+            <user-card v-for='(user, idx) in usersBlock.users'
+            :arr-name='"users"' 
+            :add-friend='addFriend'
+            :remove-request='removeRequest'
+            :id='idx'
+            :key='user'
+            :c-disabled=''
+            :d-disabled=''
+            :fu-disabled='true'
+            :item='user'></user-card>
+        </div>
+        <div class="container">
+            <h2 class="title">{{ friendsBlock.title }}</h2>
+             <user-card v-for='(friend, idx) in friendsBlock.friends'
+             :remove-request='removeRequest'
+             :arr-name='"friends"'  
+             :key='friend'
+             :id='idx'
+             :c-disabled='true'
+             :d-disabled='true'
+             :fu-disabled='false'
+             :item='friend'></user-card>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src='main.js' ></script>
+</body>
+</html>
